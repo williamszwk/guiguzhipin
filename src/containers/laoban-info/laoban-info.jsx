@@ -1,10 +1,12 @@
+// 老板信息完善组件
+
 import React, { Component } from 'react'
 import {NavBar, InputItem, TextareaItem, Button} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
 import HeaderSelector from '../../components/header-selector/header-selector'
-import {updateUser} from '../../redux/actions'
+import {updateUser} from '../../redux/action'
 
 class LaobanInfo extends Component {
     state = { 

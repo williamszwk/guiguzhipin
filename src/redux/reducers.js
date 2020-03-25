@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 
 import {getRedirectPath} from '../utils'
-import { AUTH_SUCCESS, ERROR_MSG ,RECEIVE_USER, RESET_USER} from './action-types'
+import { AUTH_SUCCESS, ERROR_MSG ,RECEIVE_USER, RESET_USER,RECEIVE_USER_LIST} from './action-types'
 
 const initUser = { 
     username: '', // 用户名 
@@ -9,6 +9,8 @@ const initUser = {
     msg: '', // 错误提示信息 
     redirectTo: '' // 需要自动跳转的路由 
 }
+const initUserList = []
+
 function user(state=initUser,action){
     switch(action.type){ 
         case AUTH_SUCCESS:
@@ -25,7 +27,16 @@ function user(state=initUser,action){
     }
     
 }
+function userList(state = initUserList, action){
+    switch (action.type){
+        case RECEIVE_USER_LIST: 
+            return action.data
+        default: 
+            return state
+    }
+}
 
 export default combineReducers({ 
-    user
+    user,
+    userList
 })

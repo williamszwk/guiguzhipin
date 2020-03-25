@@ -25,7 +25,7 @@ export default class HeaderSelector extends Component {
 
     render() {
         const {icon} = this.state
-        const gridHeader = icon ? <p>已选择头像: <img src={icon} alt="header"/></p> : '请 选择头像'
+        const gridHeader = icon ? <p>已选择头像: <img src={icon} alt="header"/></p> : '请选择头像'
 
         return (
             <List renderHeader={()=>gridHeader}>

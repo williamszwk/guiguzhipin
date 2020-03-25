@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
 import HeaderSelector from '../../components/header-selector/header-selector'
-import {updateUser} from '../../redux/actions'
+import {updateUser} from '../../redux/action'
 
 class DashenInfo extends Component {
     state = {
@@ -19,15 +19,17 @@ class DashenInfo extends Component {
         this.setState({header})
     }
     render() {
+        //如果信息完善自动重定向
         const {user} = this.props
         if (user.header){
             return <Redirect to='/dashen'/>
         }
+
         return (
             <div>
                 <NavBar>大神信息完善</NavBar>
                 <HeaderSelector setHeader={this.setHeader}/>
-                <InputItem onChange={val => this.handleChange('post', val)}>求职岗 位:</InputItem>
+                <InputItem onChange={val => this.handleChange('post', val)}>求职岗位:</InputItem>
                 <TextareaItem title="个人介绍:" rows={3} onChange={val => this.handleChange('info', val)}/>
                 <Button type='primary' onClick={() => this.props.updateUser(this.state)}>保存 </Button>
             </div>

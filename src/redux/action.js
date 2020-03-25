@@ -1,10 +1,12 @@
-import {AUTH_SUCCESS,ERROR_MSG,RECEIVE_USER, RESET_USER} from './action-types'
-import {reqRegister,reqLogin,reqUpdateUser,reqUser} from '../api'
+import {AUTH_SUCCESS,ERROR_MSG,RECEIVE_USER, RESET_USER,RECEIVE_USER_LIST} from './action-types'
+import {reqRegister,reqLogin,reqUpdateUser,reqUser,reqUserList} from '../api'
+
 
 const errorMsg = (msg) => ({type:ERROR_MSG, data: msg})
 const authSuccess = (user) => ({type: AUTH_SUCCESS, data: user})    //授权成功，同步action
 const receiveUser = (user) => ({type: RECEIVE_USER, data: user})    //同步接受
 export const resetUser = (msg) => ({type: RESET_USER, data: msg})       //同步重置
+const receiveUserList = (users) => ({type: RECEIVE_USER_LIST, data: users})
 
 //注册异步action
 export function register({username,password,password2,type}){
@@ -63,6 +65,15 @@ export const getUser = () =>{
             dispatch(receiveUser(result.data))
         }else{
             dispatch(resetUser(result.msg))
+        }
+    }
+}
+export const getUserList = (type) =>{
+    return async dispatch =>{
+        const response = await reqUserList(type)
+        const result = response.data
+        if (result.code === 0){
+            dispatch(receiveUserList(result.data))
         }
     }
 }
