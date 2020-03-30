@@ -9,6 +9,7 @@ import Main from './containers/main/main'
 import Register from './containers/register/register'
 import './assets/css/index.less'
 
+
 ReactDOM.render( 
 <Provider store={store}>
     <HashRouter>

@@ -15,6 +15,7 @@ import Message from '../message/message'
 import Personal from '../personal/personal' 
 import NotFound from '../../components/not-found/not-found' 
 import NavFooter from '../../components/nav-footer/nav-footer'
+import Chat from '../chat/chat2'
 
 class Main extends Component {
     navList = [
@@ -78,24 +79,27 @@ class Main extends Component {
         }
 
         const currentNav = this.navList.find(nav => nav.path === pathname)
-
+        
         return (
             <div>
                 {currentNav ? <NavBar className='stick-top'>{currentNav.title}</NavBar> : null}
                 <Switch>
+                {
+                    this.navList.map(nav => <Route key={nav.path} path={nav.path} component={nav.component}/>)
+                    }
                     <Route path='/laobaninfo' component={LaobanInfo}/>
                     <Route path='/dasheninfo' component={DashenInfo}/>
-
-                    <Route path='/dashen' component={Dashen}></Route> 
-                    <Route path='/laoban' component={Laoban}></Route> 
-                    <Route path='/message' component={Message}></Route> 
-                    <Route path='/personal' component={Personal}></Route> 
-                    <Route component={NotFound}></Route>
+                    <Route path='/chat/:userid' component={Chat}/>
+                    
+                    <Route component={NotFound}/>>
                 </Switch>
                 {currentNav ? <NavFooter unReadCount={this.props.unReadCount} navList={this.navList}/> : null}
             </div>
-        );
+        )
     }
 }
 
-export default connect(state=>({user:state.user}),{getUser})(Main);
+export default connect(
+    state=>({user:state.user,unReadCount: state.chat.unReadCount}),
+    {getUser}
+)(Main);

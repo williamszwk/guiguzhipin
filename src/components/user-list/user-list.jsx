@@ -1,21 +1,30 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {withRouter} from 'react-router-dom'
 import {Card, WingBlank, WhiteSpace} from 'antd-mobile' 
+import QueueAnim from 'rc-queue-anim'
 
 const Header = Card.Header 
 const Body = Card.Body
 
 class UserList extends Component {
-    static propsTypes = { userList: PropTypes.array.isRequired }
+    static propsTypes = { 
+        userList: PropTypes.array.isRequired 
+    }
     render() {
         return (
-            <WingBlank>
-                {
+            <WingBlank style={{marginTop: 50, marginBottom: 50}}>
+                  <QueueAnim type='scale' delay={100}>
+
+                  {
                     this.props.userList.map(user =>(
                     <div key={user._id}>
                         <WhiteSpace/> 
-                        <Card>
-                            <Header thumb={user.header ? require(`../../assets/imgs/${user.header}.png`) : null} extra={user.username} />
+                        <Card onClick={() => this.props.history.push(`/chat/${user._id}`)}>
+                            <Header 
+                            thumb={user.header ? require(`../../assets/imgs/${user.header}.png`) : null} 
+                            extra={user.username} 
+                            />
                             <Body>
                                 <div>职位:{user.post}</div> 
                                 {user.company ? <div>公司: {user.company}</div> : null} 
@@ -26,9 +35,11 @@ class UserList extends Component {
                     </div>
                     ))
                 }
+                  </QueueAnim>
+                
                   
             </WingBlank>
         )
     }
 }
-export default UserList
+export default withRouter(UserList)

@@ -10,7 +10,8 @@ const Item = TabBar.Item
 class NavFooter extends Component {
 
     static propTypes ={
-        navList: PropTypes.array.isRequired
+        navList: PropTypes.array.isRequired,
+        unReadCount: PropTypes.number.isRequired
     }
     render() {
         const navList = this.props.navList.filter(nav => !nav.hide)
@@ -21,6 +22,7 @@ class NavFooter extends Component {
                    navList.map((nav,index)=>(
                        <Item
                        key={nav.path} 
+                       badge={nav.path === '/message' ? this.props.unReadCount : 0}
                        title={nav.text} 
                        icon={{uri: require(`./imgs/${nav.icon}.png`)}} 
                        selectedIcon={{uri: require(`./imgs/${nav.icon}-selected.png`)}} 
